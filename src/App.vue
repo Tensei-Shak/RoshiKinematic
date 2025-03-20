@@ -95,7 +95,7 @@ const handleAddNewGroup = async (newGroupData: Group) => {
                     :class="{ 'opacity-50': store.filteredGroups.length === 0 }"
                     title="Exportar datos a JSON"
                 >
-                    <i class="bi bi-download me-2"></i> Exportar JSON
+                    <i class="bi bi-download me-2"></i> Exportar Datos
                 </button>
             </div>
         </div>
