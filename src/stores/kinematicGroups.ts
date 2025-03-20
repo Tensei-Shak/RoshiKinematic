@@ -20,7 +20,9 @@ export const useKinematicStore = defineStore('kinematicGroups', {
 			}
 
 			// Ordenar los grupos por ID de menor a mayor
-			return filtered.sort((a, b) => a.id - b.id)
+			return filtered
+  .filter(item => item.id !== undefined) // Ensure all items have a defined `id`
+  .sort((a, b) => (a.id || 0) - (b.id || 0)); // Use fallback value `0` if `id` is undefined
 		},
 	},
 	actions: {
