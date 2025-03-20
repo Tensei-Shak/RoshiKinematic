@@ -50,12 +50,13 @@ const handleAddNewGroup = async (newGroupData: Group) => {
 </script>
 
 <template>
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <h1 class="text-center mb-4 text-primary">Kinematic Groups</h1>
 
         <!-- Barra de búsqueda y acciones -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
-            <div class="input-group w-100 w-md-50 mb-2 mb-md-0">
+            <!-- Campo de búsqueda y botones de filtrado -->
+            <div class="input-group w-100 w-md-50 mb-3 mb-md-0">
                 <input
                     v-model="store.searchGroupID"
                     type="text"
@@ -63,33 +64,35 @@ const handleAddNewGroup = async (newGroupData: Group) => {
                     placeholder="Buscar Group ID..."
                     aria-label="Search Group ID"
                 />
-                <button
-                    class="btn btn-primary shadow-sm rounded-pill ms-2"
-                    @click="store.applyFilter(store.searchGroupID)"
-                >
-                    <i class="bi bi-search"></i> Filtrar
-                </button>
-                <button
-                    v-if="store.filterApplied"
-                    class="btn btn-secondary shadow-sm rounded-pill ms-2"
-                    @click="store.showAll"
-                >
-                    <i class="bi bi-list"></i> Mostrar Todo
-                </button>
+                <div class="d-flex flex-column flex-md-row gap-2 w-100 w-md-auto">
+                    <button
+                        class="btn btn-primary shadow-sm rounded-pill w-100 w-md-auto"
+                        @click="store.applyFilter(store.searchGroupID)"
+                    >
+                        <i class="bi bi-search"></i> Filtrar
+                    </button>
+                    <button
+                        v-if="store.filterApplied"
+                        class="btn btn-secondary shadow-sm rounded-pill w-100 w-md-auto"
+                        @click="store.showAll"
+                    >
+                        <i class="bi bi-list"></i> Mostrar Todo
+                    </button>
+                </div>
             </div>
-            <div class="d-flex m-3 gap-3 mt-2 mt-md-0">
-                <!-- Botón Agregar Grupo -->
+
+            <!-- Botones de acción -->
+            <div class="d-flex flex-column flex-md-row gap-3 mt-2 mt-md-0 w-100 w-md-auto">
                 <button
-                    class="btn btn-success shadow-sm rounded-pill d-flex align-items-center px-3 py-2"
+                    class="btn btn-success shadow-sm rounded-pill d-flex align-items-center justify-content-center px-3 py-2 w-100 w-md-auto"
                     @click="openAddModal"
                     title="Agregar nuevo grupo"
                 >
                     <i class="bi bi-plus-circle me-2"></i> Agregar Grupo
                 </button>
 
-                <!-- Botón Exportar JSON -->
                 <button
-                    class="btn btn-info shadow-sm rounded-pill d-flex align-items-center px-3 py-2"
+                    class="btn btn-info shadow-sm rounded-pill d-flex align-items-center justify-content-center px-3 py-2 w-100 w-md-auto"
                     @click="store.exportToJson"
                     :disabled="store.filteredGroups.length === 0"
                     :class="{ 'opacity-50': store.filteredGroups.length === 0 }"
@@ -102,25 +105,25 @@ const handleAddNewGroup = async (newGroupData: Group) => {
 
         <!-- Tabla de Grupos -->
         <div class="table-responsive shadow rounded">
-            <table class="table table-striped table-hover text-center align-middle">
-                <thead class="table-dark">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark sticky-top">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Servo ID</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Mínimo</th>
-                        <th scope="col">Máximo</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col" class="text-nowrap">ID</th>
+                        <th scope="col" class="text-nowrap">Servo ID</th>
+                        <th scope="col" class="text-nowrap">Dirección</th>
+                        <th scope="col" class="text-nowrap">Mínimo</th>
+                        <th scope="col" class="text-nowrap">Máximo</th>
+                        <th scope="col" class="text-nowrap">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="group in store.filteredGroups" :key="group.id">
-                        <td>{{ group.id }}</td>
-                        <td>{{ group.servo_id }}</td>
-                        <td>{{ group.direction }}</td>
-                        <td>{{ group.min_value }}</td>
-                        <td>{{ group.max_value }}</td>
-                        <td class="d-flex justify-content-center gap-2">
+                        <td class="text-nowrap">{{ group.id }}</td>
+                        <td class="text-nowrap">{{ group.servo_id }}</td>
+                        <td class="text-nowrap">{{ group.direction }}</td>
+                        <td class="text-nowrap">{{ group.min_value }}</td>
+                        <td class="text-nowrap">{{ group.max_value }}</td>
+                        <td class="text-nowrap d-flex justify-content-center gap-2">
                             <button
                                 class="btn btn-primary btn-sm shadow-sm"
                                 @click="openEditModal(group)"
